@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build & Test Spring Boot
+    name: Build & Test Spring Boot - Build, Test, Sonar & Nexus
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +26,41 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+      - name: Create Maven settings.xml
+        run: |
+           mkdir -p ~/.m2
+           cat > ~/.m2/settings.xml <<EOF
+           <settings>
+             <servers>
+               <server>
+                 <id>nexus</id>
+                  <username>${env.NEXUS_USER}</username>
+                  <password>${env.NEXUS_PASSWORD}</password>
+               </server>
+             </servers>
+           </settings>
+           EOF
 
       # Build & tests Maven
       - name: Build with Maven
         run: mvn clean package
         working-directory: tpDevSecOps
+
+      # SonarQube
+      - name: SonarQube Analysis
+        run: |
+          mvn sonar:sonar \
+          -Dsonar.projectKey=springboot-app \
+          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+      # Publish to Nexus (main only)
+      - name: Publish to Nexus
+        if: github.ref == 'refs/heads/main'
+        run: mvn deploy -DskipTests
+        env:
+          NEXUS_USER: ${{ secrets.NEXUS_USER }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
 
       # Upload du JAR comme artefact
       - name: Upload JAR artifact
@@ -38,6 +68,8 @@ jobs:
         with:
           name: springboot-jar
           path: tpDevSecOps/target/*.jar
+
+
 
   docker:
     name: Build Docker Image
