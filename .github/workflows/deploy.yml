@@ -53,6 +53,7 @@ jobs:
           -Dsonar.projectKey=springboot-app \
           -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        working-directory: tpDevSecOps/tpDevSecOps
 
       # Publish to Nexus (main only)
       - name: Publish to Nexus
