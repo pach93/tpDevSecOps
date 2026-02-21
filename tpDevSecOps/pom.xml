@@ -13,6 +13,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tpDevSecOps</name>
 	<description>Demo project for Spring Boot</description>
+	<properties>
+		<sonar.organization>pach93</sonar.organization>
+	</properties>
 	<url/>
 	<licenses>
 		<license/>
@@ -47,6 +50,7 @@
 		</dependency>
 
 
+
 	</dependencies>
 
 	<build>
@@ -64,5 +68,6 @@
 			<url>http://localhost:8081/repository/spring-releases/</url>
 		</repository>
 	</distributionManagement>
+
 
 </project>
