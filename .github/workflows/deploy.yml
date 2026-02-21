@@ -60,6 +60,7 @@ jobs:
       - name: Publish to Nexus
         if: github.ref == 'refs/heads/main'
         run: mvn deploy -DskipTests
+        working-directory: tpDevSecOps
         env:
           NEXUS_USER: ${{ secrets.NEXUS_USER }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
