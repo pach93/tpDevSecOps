@@ -13,9 +13,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tpDevSecOps</name>
 	<description>Demo project for Spring Boot</description>
-	<properties>
-		<sonar.organization>pach93</sonar.organization>
-	</properties>
+<!--	<properties>-->
+<!--		<sonar.organization>pach93</sonar.organization>-->
+<!--	</properties>-->
 	<url/>
 	<licenses>
 		<license/>
