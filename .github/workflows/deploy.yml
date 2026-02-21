@@ -50,7 +50,7 @@ jobs:
       - name: SonarQube Analysis
         run: |
           mvn sonar:sonar \
-          -Dsonar.projectKey=springboot-app \
+          -Dsonar.projectKey=tpDevSecOps \
           -Dsonar.organization=pach93 \
           -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
